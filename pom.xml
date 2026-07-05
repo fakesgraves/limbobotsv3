@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.mrsteve</groupId>
+    <artifactId>LimboBots</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>LimboBots</name>
+    <description>Плагин для добавления фейковых игроков (ботов) и накрутки онлайна</description>
+
+    <properties>
+        <maven.compiler.release>8</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!--
+            ВАЖНО: плагин использует NMS (net.minecraft.server.v1_16_R3),
+            поэтому нужна зависимость "spigot" (полный jar с CraftBukkit/NMS),
+            а НЕ "spigot-api".
+
+            Такой jar не лежит в публичных maven-репозиториях — его нужно
+            собрать самому через BuildTools:
+
+            1) Скачать BuildTools.jar:
+               https://www.spigotmc.org/wiki/buildtools/
+
+            2) Выполнить команду сборки ядра версии 1.16.5
+               (см. официальную инструкцию по ссылке выше, флаг rev
+               указывается двумя дефисами перед словом rev)
+
+            После этого в локальный ~/.m2 репозиторий установится:
+               org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT
+
+            и Maven сможет собрать проект.
+        -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
